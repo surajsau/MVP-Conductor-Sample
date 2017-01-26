@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/days_1"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="never"
+        android:title="Tomorrow"/>
+
+    <item android:id="@+id/days_7"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="never"
+        android:title="7 days"/>
+
+    <item android:id="@+id/days_15"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="never"
+        android:title="15 days"/>
+</menu>

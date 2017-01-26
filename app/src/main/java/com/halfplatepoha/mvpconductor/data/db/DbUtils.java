@@ -1,7 +1,10 @@
-package com.halfplatepoha.mvpconductor.data;
+package com.halfplatepoha.mvpconductor.data.db;
 
 import android.content.Context;
 
+import com.halfplatepoha.mvpconductor.data.City;
+
+import org.greenrobot.greendao.database.Database;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -13,19 +16,27 @@ import java.util.ArrayList;
  * Created by surajkumarsau on 26/01/17.
  */
 
-public class DataUtils {
+public class DbUtils {
 
-    private static DataUtils mInstance;
+    private static DbUtils mInstance;
     private Context mContext;
+    private DaoSession daoSession;
 
-    private DataUtils(Context context) {
+    private DbUtils(Context context) {
         mContext = context;
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(mContext, "cities-db");
+        Database db = helper.getWritableDb();
+        daoSession = new DaoMaster(db).newSession();
     }
 
-    public static DataUtils getInstance(Context context) {
-        if(mInstance == null)
-            mInstance = new DataUtils(context);
+    public static DbUtils getInstance() {
         return mInstance;
+    }
+
+    public static void init(Context context) {
+        if(mInstance == null) {
+            mInstance = new DbUtils(context);
+        }
     }
 
     private String loadJSONFromAsset() {
@@ -44,18 +55,25 @@ public class DataUtils {
         return json;
     }
 
-    public ArrayList<City> getCities() {
-        ArrayList<City> cities = new ArrayList<>();
+    public ArrayList<CityDbModel> getCities() {
+        ArrayList<CityDbModel> cities = new ArrayList<>();
         try {
             JSONArray objs = new JSONArray(loadJSONFromAsset());
             for(int i=0; i<objs.length(); i++) {
-                cities.add(new City(objs.getJSONObject(i).getLong("_id"), objs.getJSONObject(i).getString("name")));
+                cities.add(new CityDbModel(null,
+                        objs.getJSONObject(i).getInt("_id"),
+                        objs.getJSONObject(i).getString("name"),
+                        false));
             }
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
         return cities;
+    }
+
+    public DaoSession getDaoSession() {
+        return daoSession;
     }
 
 

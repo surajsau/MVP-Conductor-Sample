@@ -15,6 +15,15 @@ public class CityWeather implements Serializable {
     private ArrayList<Weather> weather;
     private Main main;
     private String name;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public ArrayList<Weather> getWeather() {
         return weather;

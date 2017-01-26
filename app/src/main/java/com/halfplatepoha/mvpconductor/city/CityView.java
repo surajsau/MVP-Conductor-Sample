@@ -7,25 +7,19 @@ import com.halfplatepoha.mvpconductor.BaseView;
  */
 
 public interface CityView extends BaseView<CityPresenterImpl> {
-    void showLoadingIndicator();
-    void hideLoadingIndicator();
+    void updateWeatherPredictionsList(ForecastModel model);
+    void showCurrentWeather(WeatherModel model);
 
-    void showTasks();
-    void showNoTasks();
-    void showActiveTasks();
-    void showCompletedTasks();
-    void showNoActiveTasks();
-    void showNoCompletedTasks();
+    void clearForecastList();
 
-    void showAddTask();
+    void showRefreshLayout();
+    void hideRefreshLayout();
 
-    void showTaskDetails(String taskId);
+    void stopRefreshingAnimation();
 
-    void showFilter();
-    void markActiveFilter();
-    void markCompletedFilter();
-    void markAllFilter();
+    void hideFilterMenuHelpText();
+    void makeRefreshButtonToRetryButton();
 
-    void showSuccessfullySavedMessage();
-    void showLoadingError();
+    void hideButtonLayout();
+    void showButtonLayout();
 }
