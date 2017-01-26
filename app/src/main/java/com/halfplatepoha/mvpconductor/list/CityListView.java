@@ -8,11 +8,7 @@ public interface CityListView {
     void hideRefreshLayout();
     void showRefreshLayout();
 
-    void clearList();
-
     void addCity(CityModel city);
-
-    void stopRefreshAnimation();
 
     void hideHelpText();
 }

@@ -2,6 +2,7 @@ package com.halfplatepoha.mvpconductor.data.db;
 
 import android.content.Context;
 
+import com.halfplatepoha.mvpconductor.IConstants;
 import com.halfplatepoha.mvpconductor.data.City;
 
 import org.greenrobot.greendao.database.Database;
@@ -63,7 +64,7 @@ public class DbUtils {
                 cities.add(new CityDbModel(null,
                         objs.getJSONObject(i).getInt("_id"),
                         objs.getJSONObject(i).getString("name"),
-                        false));
+                        IConstants.STATUS_UNSELECTED));
             }
         } catch (JSONException e) {
             e.printStackTrace();

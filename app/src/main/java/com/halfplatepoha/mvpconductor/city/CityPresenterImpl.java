@@ -38,8 +38,7 @@ public class CityPresenterImpl implements CityPresenter {
         this.cityId = cityId;
     }
 
-    @Override
-    public void getForecast() {
+    private void getForecast() {
         mClient.getCityDailyForecast(cityId, numberOfDays)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

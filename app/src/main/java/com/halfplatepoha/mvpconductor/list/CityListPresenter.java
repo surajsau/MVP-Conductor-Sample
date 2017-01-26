@@ -9,5 +9,7 @@ import com.halfplatepoha.mvpconductor.BasePresenter;
 public interface CityListPresenter extends BasePresenter {
     void onRefresh();
 
-    void getWeathersOfCities();
+    void getWeathersOfCity(int cityId);
+
+    void closeSubscriptions();
 }

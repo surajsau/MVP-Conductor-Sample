@@ -7,7 +7,6 @@ import com.halfplatepoha.mvpconductor.BasePresenter;
  */
 
 public interface CityPresenter extends BasePresenter {
-    void getForecast();
     void getWeather();
     void setNumberOfDays(int numberOfDays);
 

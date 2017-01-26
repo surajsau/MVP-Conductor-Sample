@@ -1,38 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh_layout"
+    <include layout="@layout/toolbar"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rlCity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        tools:listitem="@layout/city_layout"
+        android:layout_marginTop="?android:actionBarSize"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rlCity"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/city_layout"
-            android:background="@android:color/white"/>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <TextView android:id="@+id/tvHelpText"
+    <TextView
+        android:id="@+id/tvHelpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center_horizontal"
-        android:text="You\'ve no cities to show\nPlease click on the bottom button to add one"/>
+        android:text="You\'ve no cities to show\nPlease click on the bottom button to add one" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnAddCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:fabSize="normal"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        app:fabSize="normal" />
 
 </FrameLayout>

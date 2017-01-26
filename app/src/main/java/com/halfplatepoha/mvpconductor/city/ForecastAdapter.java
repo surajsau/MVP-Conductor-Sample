@@ -45,7 +45,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     @Override
     public int getItemCount() {
         if(forecasts != null)
-            forecasts.size();
+            return forecasts.size();
         return 0;
     }
 
@@ -65,7 +65,8 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     }
 
     public void clear() {
-        forecasts.clear();
+        if(forecasts != null)
+            forecasts.clear();
         notifyDataSetChanged();
     }
 

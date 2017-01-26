@@ -4,6 +4,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Unique;
 
 import static android.R.string.no;
 
@@ -24,15 +25,15 @@ public class CityDbModel {
     private String cityName;
 
     @NotNull
-    private Boolean selected;
+    private String status;
 
-    @Generated(hash = 983350479)
+    @Generated(hash = 1997077777)
     public CityDbModel(Long id, @NotNull Integer cityId, @NotNull String cityName,
-            @NotNull Boolean selected) {
+            @NotNull String status) {
         this.id = id;
         this.cityId = cityId;
         this.cityName = cityName;
-        this.selected = selected;
+        this.status = status;
     }
 
     @Generated(hash = 599002694)
@@ -63,11 +64,11 @@ public class CityDbModel {
         this.cityName = cityName;
     }
 
-    public Boolean getSelected() {
-        return this.selected;
+    public String getStatus() {
+        return this.status;
     }
 
-    public void setSelected(Boolean selected) {
-        this.selected = selected;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

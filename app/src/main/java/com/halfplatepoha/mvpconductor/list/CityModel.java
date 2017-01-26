@@ -38,4 +38,13 @@ public class CityModel {
     public String getWeatherDescription() {
         return weatherDescription;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof CityModel) {
+            CityModel o = (CityModel)obj;
+            return getCityId() == o.getCityId();
+        }
+        return false;
+    }
 }

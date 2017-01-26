@@ -36,6 +36,10 @@ public class CityController extends BaseController implements CityView, SwipeRef
     private Button btnRefresh;
     private TextView tvFitlerMenuHelpText;
 
+    private TextView tvTemp;
+    private TextView tvMinTemp;
+    private TextView tvMaxTemp;
+
     private View llRefresh;
 
     private int cityId;
@@ -44,13 +48,19 @@ public class CityController extends BaseController implements CityView, SwipeRef
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnRefresh:
-                presenter.getForecast();
+                presenter.onRefresh();
         }
     }
 
-    public CityController(Bundle args) {
-        super(args);
-        getDataFromBundle();
+    public CityController() {}
+
+    @Override
+    public String getTitle() {
+        return "City Details";
+    }
+
+    public CityController(int cityId) {
+        this.cityId = cityId;
     }
 
     private enum ButtonState {
@@ -61,15 +71,10 @@ public class CityController extends BaseController implements CityView, SwipeRef
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         View view = inflater.inflate(R.layout.layout_city, container, false);
-        return view;
-    }
+        setHasOptionsMenu(true);
 
-    @Override
-    protected void onAttach(@NonNull View view) {
-        super.onAttach(view);
         presenter = new CityPresenterImpl(this, cityId);
-
-        getDataFromBundle();
+        presenter.start();
 
         buttonState = ButtonState.BUTTON_REFRESH;
 
@@ -79,6 +84,10 @@ public class CityController extends BaseController implements CityView, SwipeRef
         tvFitlerMenuHelpText = (TextView) view.findViewById(R.id.tvChooseFilterHelpText);
         llRefresh =  view.findViewById(R.id.llRefresh);
 
+        tvTemp = (TextView) view.findViewById(R.id.tvTemp);
+        tvMinTemp = (TextView) view.findViewById(R.id.tvMinTemp);
+        tvMaxTemp = (TextView) view.findViewById(R.id.tvTMaxemp);
+
         refreshLayout.setOnRefreshListener(this);
         btnRefresh.setOnClickListener(this);
 
@@ -86,14 +95,13 @@ public class CityController extends BaseController implements CityView, SwipeRef
 
         rlForecasts.setLayoutManager(new LinearLayoutManager(getActivity()));
         rlForecasts.setAdapter(mAdapter);
-
-        presenter.start();
+        return view;
     }
 
-    private void getDataFromBundle() {
-        if(getArgs() != null) {
-            cityId = getArgs().getInt(IConstants.CITY_ID, 0);
-        }
+    @Override
+    protected void onAttach(@NonNull View view) {
+        super.onAttach(view);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -105,19 +113,22 @@ public class CityController extends BaseController implements CityView, SwipeRef
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                getRouter().popController(this);
+                break;
             case R.id.days_1:
                 presenter.setNumberOfDays(1);
-                presenter.getForecast();
+                presenter.onRefresh();
                 break;
 
             case R.id.days_7:
                 presenter.setNumberOfDays(7);
-                presenter.getForecast();
+                presenter.onRefresh();
                 break;
 
             case R.id.days_15:
                 presenter.setNumberOfDays(15);
-                presenter.getForecast();
+                presenter.onRefresh();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -130,7 +141,9 @@ public class CityController extends BaseController implements CityView, SwipeRef
 
     @Override
     public void showCurrentWeather(WeatherModel model) {
-
+        tvTemp.setText(Float.toString(model.getTemp()));
+        tvMinTemp.setText(Float.toString(model.getMinTemp()));
+        tvMaxTemp.setText(Float.toString(model.getMaxTemp()));
     }
 
     @Override

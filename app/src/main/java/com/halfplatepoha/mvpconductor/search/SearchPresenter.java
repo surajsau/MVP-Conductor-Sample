@@ -7,4 +7,7 @@ import com.halfplatepoha.mvpconductor.BasePresenter;
  */
 
 public interface SearchPresenter extends BasePresenter {
+    void search(String searchQuery);
+
+    void updateCityAsSelected(int cityId);
 }

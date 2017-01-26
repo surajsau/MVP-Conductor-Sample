@@ -6,12 +6,13 @@ import android.os.Bundle;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Conductor;
+import com.bluelinelabs.conductor.Controller;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
+import com.halfplatepoha.mvpconductor.list.CityListController;
 
-public class MainActivity extends AppCompatActivity implements DrawerLayoutProvider{
+public class MainActivity extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
     private Router mRouter;
 
     private ViewGroup container;
@@ -21,17 +22,14 @@ public class MainActivity extends AppCompatActivity implements DrawerLayoutProvi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         container = (ViewGroup) findViewById(R.id.container);
 
         mRouter = Conductor.attachRouter(this, container, savedInstanceState);
         if(!mRouter.hasRootController()) {
-
+            CityListController listController = new CityListController();
+            listController.registerForActivityResult(IConstants.REQUEST_SEARCH_RESULT);
+            listController.setRetainViewMode(Controller.RetainViewMode.RETAIN_DETACH);
+            mRouter.pushController(RouterTransaction.with(listController));
         }
-    }
-
-    @Override
-    public DrawerLayout getDrawerLayout() {
-        return mDrawerLayout;
     }
 }

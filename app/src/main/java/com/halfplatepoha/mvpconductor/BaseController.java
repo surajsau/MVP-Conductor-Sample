@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bluelinelabs.conductor.Controller;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 /**
  * Created by surajkumarsau on 25/01/17.
@@ -21,37 +24,22 @@ public abstract class BaseController extends Controller {
 
     public BaseController(){}
 
-    public BaseController(Bundle args){}
+    public abstract String getTitle();
 
-    protected DrawerLayout getDrawerLayout() {
-        DrawerLayoutProvider provider = (DrawerLayoutProvider)getActivity();
-        return provider.getDrawerLayout();
+    protected ActionBar getActionBar() {
+        return ((AppCompatActivity)getActivity()).getSupportActionBar();
     }
 
-    protected ActionBar getSupportActionBar() {
-        ActionBarInterface actionBarInterface = (ActionBarInterface)getActivity();
-        return actionBarInterface.getSupportActionBar();
-    }
-
-    protected void setSupportActionBar(Toolbar toolbar) {
-        ActionBarInterface actionBarInterface = (ActionBarInterface)getActivity();
-        actionBarInterface.setSupportActionBar(toolbar);
+    protected void setActionBar(View view) {
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(getTitle());
     }
 
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
-        DrawerLayout drawerLayout = getDrawerLayout();
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                getRouter().handleBack();
-        }
-        return super.onOptionsItemSelected(item);
+        setActionBar(view);
     }
 
     @Override
