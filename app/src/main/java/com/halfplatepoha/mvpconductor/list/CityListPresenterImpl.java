@@ -33,6 +33,11 @@ public class CityListPresenterImpl implements CityListPresenter {
 
     public CityListPresenterImpl(CityListView view) {
         this.view = view;
+        initClient();
+    }
+
+    public void initClient() {
+        client = ServiceGenerator.createService(WeatherClient.class);
     }
 
     @Override
@@ -46,13 +51,7 @@ public class CityListPresenterImpl implements CityListPresenter {
     }
 
     @Override
-    public void closeSubscriptions() {
-
-    }
-
-    @Override
     public void start() {
-        client = ServiceGenerator.createService(WeatherClient.class);
         new GetSelectedCitiesTask().execute();
     }
 

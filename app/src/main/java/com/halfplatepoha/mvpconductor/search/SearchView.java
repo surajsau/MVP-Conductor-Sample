@@ -10,4 +10,6 @@ public interface SearchView {
     void refreshList(ArrayList<SearchModel> searchResults);
 
     void setResultAndGoBack(int cityId);
+
+    boolean isActive();
 }

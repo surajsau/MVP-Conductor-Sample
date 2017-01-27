@@ -29,13 +29,18 @@ public class CityPresenterImpl implements CityPresenter {
 
     @Override
     public void start() {
-        mClient = ServiceGenerator.createService(WeatherClient.class);
         getWeather();
     }
 
     public CityPresenterImpl(CityView view, int cityId) {
         this.view = view;
         this.cityId = cityId;
+
+        initClient();
+    }
+
+    public void initClient() {
+        mClient = ServiceGenerator.createService(WeatherClient.class);
     }
 
     private void getForecast() {

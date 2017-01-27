@@ -10,6 +10,4 @@ public interface CityListPresenter extends BasePresenter {
     void onRefresh();
 
     void getWeathersOfCity(int cityId);
-
-    void closeSubscriptions();
 }

@@ -6,7 +6,7 @@ import com.halfplatepoha.mvpconductor.BaseView;
  * Created by surajkumarsau on 25/01/17.
  */
 
-public interface CityView extends BaseView<CityPresenterImpl> {
+public interface CityView extends BaseView<CityPresenter> {
     void updateWeatherPredictionsList(ForecastModel model);
     void showCurrentWeather(WeatherModel model);
 
@@ -22,4 +22,6 @@ public interface CityView extends BaseView<CityPresenterImpl> {
 
     void hideButtonLayout();
     void showButtonLayout();
+
+    boolean isActive();
 }

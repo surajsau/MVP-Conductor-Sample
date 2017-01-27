@@ -11,4 +11,6 @@ public interface CityListView {
     void addCity(CityModel city);
 
     void hideHelpText();
+
+    boolean isActive();
 }
